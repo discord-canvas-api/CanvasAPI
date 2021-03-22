@@ -1,19 +1,19 @@
 import java.time.Duration;
+
+import discord4j.common.util.Snowflake;
 import io.timeandspace.cronscheduler.CronScheduler;
-import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
-import discord4j.core.event.domain.message.MessageEvent;
-import discord4j.core.event.domain.message.MessageCreateEvent;
-import discord4j.core.object.entity.Message;
-import discord4j.core.event.domain.Event;
 import java.util.concurrent.TimeUnit;
 
 public class Cron {
-  public Cron(GatewayDiscordClient bot) {
+  public Cron(GatewayDiscordClient bot, CanvasAPI api) {
+    Snowflake id = Snowflake.of("820142600899133510"); // The channel's ID
     Duration syncPeriod = Duration.ofMinutes(5);
     CronScheduler cron = CronScheduler.create(syncPeriod);
     cron.scheduleAtFixedRateSkippingToLatest(0, 1, TimeUnit.MINUTES, runTimeMillis -> {
-        System.out.println("ASD");
+      // will call the API here
+      api.getAssigments();
+      //bot.getChannelById(id).block().getRestChannel().createMessage("tester").block();
     }); 
   }
 }
