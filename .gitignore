@@ -3,4 +3,6 @@
 .project
 .settings
 target/
-keys.ini
+src/main/resources/keys.ini
+myartifactid.iml
+.idea
