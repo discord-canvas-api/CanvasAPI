@@ -18,8 +18,9 @@ public class Main {
       .login()
       .block();
 
-    CanvasAPI api = new CanvasAPI(keyMap.get("canvas_key"));
-    Cron cron = new Cron(client, api);
+    CanvasAPI api = new CanvasAPI(keyMap.get("canvas_key"), keyMap.get("url"));
+    new Cache();
+    new Cron(client, api);
 
     assert client != null;
     client.getEventDispatcher().on(MessageCreateEvent.class)
@@ -49,6 +50,7 @@ public class Main {
       Wini ini = new Wini(new File("src/main/resources/keys.ini"));
       keyMap.put("discord_key", ini.get("api-keys", "discord_key"));
       keyMap.put("canvas_key", ini.get("api-keys", "canvas_key"));
+      keyMap.put("url", ini.get("site-url", "url"));
       // To catch basically any error related to finding the file e.g
       // (The system cannot find the file specified)
     }catch(Exception e){
